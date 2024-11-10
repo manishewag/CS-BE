@@ -28,11 +28,7 @@ app.use(cors({
     credentials: true,
 }));
 
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*")
-//   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-//   res.header("Access-Control-Allow-Headers", "Content-Type, X-Auth-Token, Origin, Authorization")
-// })
+
 
 
 mongoose.connect(process.env.MONGO_URL);
@@ -193,34 +189,34 @@ app.get('/places', async (req,res) => {
   res.json( await Place.find() );
 });
 
-app.post('/bookings', async (req, res) => {
-  const userData = await getUserDataFromReq(req);
-  const {
-    place, checkIn, checkOut,
-    numberOfGuests, name, phone, price,
-  } = req.body;
-  Booking.create({
-    place, checkIn, checkOut, numberOfGuests, name, phone, price,
-    user:userData.id,
-  }).then((doc) => {
-    res.json(doc);
-  }).catch((err) => {
-    throw err;
-  });
-});
-
 // app.post('/bookings', async (req, res) => {
 //   const userData = await getUserDataFromReq(req);
 //   const {
 //     place, checkIn, checkOut,
 //     numberOfGuests, name, phone, price,
 //   } = req.body;
-//   const booking = new Booking({
+//   Booking.create({
 //     place, checkIn, checkOut, numberOfGuests, name, phone, price,
-//     user:userData.id })
-//   await booking.save()
-//   res.status(200).json({ message: "Booking created", booking })
+//     user:userData.id,
+//   }).then((doc) => {
+//     res.json(doc);
+//   }).catch((err) => {
+//     throw err;
 //   });
+// });
+
+app.post('/bookings', async (req, res) => {
+  const userData = await getUserDataFromReq(req);
+  const {
+    place, checkIn, checkOut,
+    numberOfGuests, name, phone, price,
+  } = req.body;
+  const booking = new Booking({
+    place, checkIn, checkOut, numberOfGuests, name, phone, price,
+    user:userData.id })
+  await booking.save()
+  res.status(200).json({ message: "Booking created", booking })
+  });
 
 
 app.get('/bookings', async (req, res) => {
