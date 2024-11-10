@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
-    origin: "*",
+    origin: "https://golden-yeot-3af92e.netlify.app",
     credentials: true,
 }));
 
