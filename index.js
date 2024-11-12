@@ -44,7 +44,7 @@ mongoose.connect(process.env.MONGO_URL);
 
 function getUserDataFromReq(req) {
   return new Promise((resolve, reject) => {
-    jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
+    jwt.verify(req.cookies.token, jwtSecret, {}, (err, userData) => {
       if (err) {
           err = {
             name: 'JsonWebTokenError',
@@ -203,36 +203,36 @@ app.get('/places', async (req,res) => {
   res.json( await Place.find() );
 });
 
-app.post('/bookings', async (req, res) => {
-  const userData = await getUserDataFromReq(req);
-  const {
-    place, checkIn, checkOut,
-    numberOfGuests, name, phone, price,
-  } = req.body;
-  Booking.create({
-    place, checkIn, checkOut, numberOfGuests, name, phone, price,
-    user:userData
-  }).then((doc) => {
-    res.json(doc);
-  }).catch((err) => {
-    throw err;
-  });
-});
-
 // app.post('/bookings', async (req, res) => {
 //   const userData = await getUserDataFromReq(req);
 //   const {
 //     place, checkIn, checkOut,
 //     numberOfGuests, name, phone, price,
 //   } = req.body;
-//   console.log(booking)
-//   const booking = new Booking({
+//   Booking.create({
 //     place, checkIn, checkOut, numberOfGuests, name, phone, price,
-//     user:userData.id })
-//   await booking.save()
-//   console.log(booking)
-//   res.status(200).json({ message: "Booking created", booking })
+//     user:userData.id,
+//   }).then((doc) => {
+//     res.json(doc);
+//   }).catch((err) => {
+//     throw err;
 //   });
+// });
+
+app.post('/bookings', async (req, res) => {
+  const userData = await getUserDataFromReq(req);
+  const {
+    place, checkIn, checkOut,
+    numberOfGuests, name, phone, price,
+  } = req.body;
+  console.log(booking)
+  const booking = new Booking({
+    place, checkIn, checkOut, numberOfGuests, name, phone, price,
+    user:userData.id })
+  await booking.save()
+  console.log(booking)
+  res.status(200).json({ message: "Booking created", booking })
+  });
 
 
 app.get('/bookings', async (req, res) => {
