@@ -216,6 +216,7 @@ app.post('/bookings', async (req, res) => {
     place, checkIn, checkOut, numberOfGuests, name, phone, price,
     user:userData.id })
   await booking.save()
+  console.log(booking)
   res.status(200).json({ message: "Booking created", booking })
   });
 
