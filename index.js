@@ -33,10 +33,24 @@ app.use(cors({
 
 mongoose.connect(process.env.MONGO_URL);
 
+// function getUserDataFromReq(req) {
+//   return new Promise((resolve, reject) => {
+//     jwt.verify(req.cookies.token, jwtSecret, {}, (err, userData) => {
+//       if (err) throw err;
+//       resolve(userData);
+//     });
+//   });
+// }
+
 function getUserDataFromReq(req) {
   return new Promise((resolve, reject) => {
-    jwt.verify(req.cookies.token, jwtSecret, {}, (err, userData) => {
-      if (err) throw err;
+    jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
+      if (err) {
+          err = {
+            name: 'JsonWebTokenError',
+            message: 'jwt malformed'
+          }
+      };
       resolve(userData);
     });
   });
