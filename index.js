@@ -44,7 +44,7 @@ mongoose.connect(process.env.MONGO_URL);
 
 function getUserDataFromReq(req) {
   return new Promise((resolve, reject) => {
-    jwt.verify(req.cookies.token, jwtSecret, {}, (err, userData) => {
+    jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
       if (err) {
           err = {
             name: 'JsonWebTokenError',
@@ -228,8 +228,8 @@ app.post('/bookings', async (req, res) => {
   const booking = new Booking({
     place, checkIn, checkOut, numberOfGuests, name, phone, price,
     user:userData.id })
+    console.log(booking)
   await booking.save()
-  console.log(booking)
   res.status(200).json({ message: "Booking created", booking })
   });
 
