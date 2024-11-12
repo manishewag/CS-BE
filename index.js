@@ -211,7 +211,7 @@ app.post('/bookings', async (req, res) => {
   } = req.body;
   Booking.create({
     place, checkIn, checkOut, numberOfGuests, name, phone, price,
-    user:userData.id,
+    user:userData
   }).then((doc) => {
     res.json(doc);
   }).catch((err) => {
