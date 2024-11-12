@@ -225,7 +225,6 @@ app.post('/bookings', async (req, res) => {
     place, checkIn, checkOut,
     numberOfGuests, name, phone, price,
   } = req.body;
-  console.log(booking)
   const booking = new Booking({
     place, checkIn, checkOut, numberOfGuests, name, phone, price,
     user:userData.id })
