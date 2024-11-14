@@ -55,7 +55,7 @@ function getUserDataFromReq(req) {
 // }
 
 
-app.get('/test', (req, res) => {
+app.get('/', (req, res) => {
     res.json('Capstone ok');
 });
 
