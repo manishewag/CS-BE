@@ -220,9 +220,10 @@ app.get('/places', async (req,res) => {
 app.post('/bookings', async (req, res) => {
   const userData = await getUserDataFromReq(req);
   console.log(userData);
+  const {token} = req.cookies;
   const {
     place, checkIn, checkOut,
-    numberOfGuests, name, phone, price,user
+    numberOfGuests, name, phone, price,
   } = req.body;
   const booking = new Booking({
     place, checkIn, checkOut, numberOfGuests, name, phone, price,
