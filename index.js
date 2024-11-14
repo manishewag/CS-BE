@@ -222,11 +222,11 @@ app.post('/bookings', async (req, res) => {
   console.log(userData);
   const {
     place, checkIn, checkOut,
-    numberOfGuests, name, phone, price,
+    numberOfGuests, name, phone, price,user
   } = req.body;
   const booking = new Booking({
     place, checkIn, checkOut, numberOfGuests, name, phone, price,
-    user:userData.id })
+    user:userData.id,user })
     console.log(booking);
   await booking.save()
   res.status(200).json({ message: "Booking created", booking })
