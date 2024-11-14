@@ -16,6 +16,10 @@ require('dotenv').config();
 
 
 const app = express();
+app.use(cors({
+  origin: "https://golden-yeot-3af92e.netlify.app",
+  credentials: true,
+}));
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = 'esrdfuiuilhgf';
@@ -23,10 +27,10 @@ const jwtSecret = 'esrdfuiuilhgf';
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
-app.use(cors({
-    origin: "https://golden-yeot-3af92e.netlify.app",
-    credentials: true,
-}));
+// app.use(cors({
+//     origin: "https://golden-yeot-3af92e.netlify.app",
+//     credentials: true,
+// }));
 
 
 mongoose.connect(process.env.MONGO_URL);
