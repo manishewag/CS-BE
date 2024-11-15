@@ -207,11 +207,11 @@ app.post('/bookings', async (req, res) => {
     place, checkIn, checkOut,
     numberOfGuests, name, phone, price,
   } = req.body;
-  const booking = await Booking.create({
+  await Booking.create({
     place, checkIn, checkOut, numberOfGuests, name, phone, price,
     user:userData.id,
-  }).then(() => {
-    res.json({booking});
+  }).then((doc) => {
+    res.json(doc);
   }).catch((err) => {
     throw err;
   });
