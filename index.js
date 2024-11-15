@@ -223,7 +223,7 @@ app.post('/bookings', async (req, res) => {
   const userData = await getUserDataFromReq(req);
   const {
     place, checkIn, checkOut,
-    numberOfGuests, name, phone, price,email
+    numberOfGuests, name, phone, price,
   } = req.body;
   const booking = new Booking({
     place, checkIn, checkOut, numberOfGuests, name, phone, price,
