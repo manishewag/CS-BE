@@ -31,17 +31,17 @@ app.use(cors({
 
 mongoose.connect(process.env.MONGO_URL);
 
-function getUserDataFromReq(req) {
-  // const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
-  return new Promise((resolve, reject) => {
-    console.log(userData)
-    resolve(userData);
-    // jwt.verify(token, jwtSecret, {}, (err, userData) => {
-    //   if (err) throw err;
-    //   resolve(userData);
-    // });
-  });
-}
+// function getUserDataFromReq(req) {
+//   // const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
+//   return new Promise((resolve, reject) => {
+//     console.log(userData)
+//     resolve(userData);
+//     // jwt.verify(token, jwtSecret, {}, (err, userData) => {
+//     //   if (err) throw err;
+//     //   resolve(userData);
+//     // });
+//   });
+// }
 
 // function getUserDataFromReq(req) {
 //   return new Promise((resolve, reject) => {
@@ -174,6 +174,7 @@ app.get('/user-places', (req,res) => {
 })
 
 
+
 app.get('/places/:id',async (req,res) => {
   const {id} = req.params;
   res.json(await Place.findById(id));
@@ -221,8 +222,8 @@ app.get('/places', async (req,res) => {
 // });
 
 app.post('/bookings', async (req, res) => {
-  const userData = await getUserDataFromReq(req);
-  const {
+  // const userData = await getUserDataFromReq(req);
+  const userData = {
     place, checkIn, checkOut,
     numberOfGuests, name, phone, price,
   } = req.body;
