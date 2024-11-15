@@ -32,11 +32,13 @@ app.use(cors({
 mongoose.connect(process.env.MONGO_URL);
 
 function getUserDataFromReq(req) {
+  // const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
   return new Promise((resolve, reject) => {
-    jwt.verify(req.cookies.token, jwtSecret, {}, (err, userData) => {
-      if (err) throw err;
-      resolve(userData);
-    });
+    resolve(userData);
+    // jwt.verify(token, jwtSecret, {}, (err, userData) => {
+    //   if (err) throw err;
+    //   resolve(userData);
+    // });
   });
 }
 
@@ -219,15 +221,13 @@ app.get('/places', async (req,res) => {
 
 app.post('/bookings', async (req, res) => {
   const userData = await getUserDataFromReq(req);
-  console.log(userData);
-  const {token} = req.cookies;
   const {
     place, checkIn, checkOut,
-    numberOfGuests, name, phone, price,
+    numberOfGuests, name, phone, price,email
   } = req.body;
   const booking = new Booking({
     place, checkIn, checkOut, numberOfGuests, name, phone, price,
-    user:userData.id })
+    user:userData.email })
     console.log(booking);
   await booking.save()
   res.status(200).json({ message: "Booking created", booking })
