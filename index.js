@@ -201,37 +201,37 @@ app.get('/places', async (req,res) => {
   res.json( await Place.find() );
 });
 
-app.post('/bookings', async (req, res) => {
-  const userData = await getUserDataFromReq(req);
-  const {
-    place, checkIn, checkOut,
-    numberOfGuests, name, phone, price,
-  } = req.body;
-  await Booking.create({
-    place, checkIn, checkOut, numberOfGuests, name, phone, price,
-    user:userData.id,
-  }).then((doc) => {
-    res.json(doc);
-  }).catch((err) => {
-    throw err;
-  });
-});
-
 // app.post('/bookings', async (req, res) => {
 //   const userData = await getUserDataFromReq(req);
-//   console.log(userData);
-//   const {token} = req.cookies;
 //   const {
 //     place, checkIn, checkOut,
 //     numberOfGuests, name, phone, price,
 //   } = req.body;
-//   const booking = new Booking({
+//    Booking.create({
 //     place, checkIn, checkOut, numberOfGuests, name, phone, price,
-//     user:userData.id })
-//     console.log(booking);
-//   await booking.save()
-//   res.status(200).json({ message: "Booking created", booking })
+//     user:userData.id,
+//   }).then((doc) => {
+//     res.json(doc);
+//   }).catch((err) => {
+//     throw err;
 //   });
+// });
+
+app.post('/bookings', async (req, res) => {
+  const userData = await getUserDataFromReq(req);
+  console.log(userData);
+  const {token} = req.cookies;
+  const {
+    place, checkIn, checkOut,
+    numberOfGuests, name, phone, price,
+  } = req.body;
+  const booking = new Booking({
+    place, checkIn, checkOut, numberOfGuests, name, phone, price,
+    user:userData.id })
+    console.log(booking);
+  await booking.save()
+  res.status(200).json({ message: "Booking created", booking })
+  });
 
 
 app.get('/bookings', async (req, res) => {
