@@ -34,7 +34,7 @@ mongoose.connect(process.env.MONGO_URL);
 function getUserDataFromReq(req) {
   // const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
   return new Promise((resolve, reject) => {
-    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    jwt.verify(res.cookie.User.token, jwtSecret, {}, async (err, userData) => {
       if (err) throw err;
       resolve(userData);
     });
