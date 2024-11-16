@@ -32,11 +32,12 @@ app.use(cors({
 mongoose.connect(process.env.MONGO_URL);
 
 function getUserDataFromReq(req) {
-  const {token} = req.cookies;
   // const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
+  const token = req.cookies.token;
   return new Promise((resolve, reject) => {
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
       if (err) throw err;
+      req.id = id;
       resolve(userData);
     });
   });
