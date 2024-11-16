@@ -31,7 +31,7 @@ app.use(cors({
 
 mongoose.connect(process.env.MONGO_URL);
 
-function getUserDataFromToken(req) {
+function getUserDataFromReq(req) {
   // const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
   return new Promise((resolve, reject) => {
     // jwt.verify(token, jwtSecret, {}, (err, userData) => {
@@ -221,8 +221,9 @@ app.get('/places', async (req,res) => {
 // });
 
 app.post('/bookings', async (req, res) => {
-  // const userData = await getUserDataFromReq(req);
-  const userData = {
+  const userData = await getUserDataFromReq(req);
+  console.log(userData);
+  const {
     place, checkIn, checkOut,
     numberOfGuests, name, phone, price,
   } = req.body;
