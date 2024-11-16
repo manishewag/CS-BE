@@ -41,19 +41,19 @@ mongoose.connect(process.env.MONGO_URL);
 //   // });
 // }
 
-// function getUserDataFromReq(req) {
-//   return new Promise((resolve, reject) => {
-//     jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
-//       if (err) {
-//           err = {
-//             name: 'JsonWebTokenError',
-//             message: 'jwt malformed'
-//           }
-//       };
-//       resolve(userData);
-//     });
-//   });
-// }
+function getUserDataFromReq(req) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
+      if (err) {
+          err = {
+            name: 'JsonWebTokenError',
+            message: 'jwt malformed'
+          }
+      };
+      resolve(userData);
+    });
+  });
+}
 
 
 app.get('/', (req, res) => {
