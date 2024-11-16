@@ -36,7 +36,7 @@ function getUserDataFromReq(req) {
   return new Promise((resolve, reject) => {
     // jwt.verify(token, jwtSecret, {}, (err, userData) => {
       // if (err) throw err;
-      console.log(userData)
+      // console.log(userData)
       resolve(userData);
     });
   // });
@@ -79,7 +79,7 @@ app.post('/register', async (req, res) => {
 
 
 app.post('/login', async (req,res) => {
-    // mongoose.connect(process.env.MONGO_URL);
+    mongoose.connect(process.env.MONGO_URL);
     const {email,password} = req.body;
     const userDoc = await User.findOne({email});
     if (userDoc) {
