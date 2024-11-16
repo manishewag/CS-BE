@@ -31,17 +31,15 @@ app.use(cors({
 
 mongoose.connect(process.env.MONGO_URL);
 
-function getUserDataFromReq(req) {
-  // const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
-  return new Promise((resolve, reject) => {
-    // jwt.verify(token, jwtSecret, {}, (err, userData) => {
-    //   if (err) throw err;
-     req.id;
-     console.log(id)
-      resolve(userData);
-    });
-  // });
-}
+// function getUserDataFromReq(req) {
+//   // const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
+//   return new Promise((resolve, reject) => {
+//     // jwt.verify(token, jwtSecret, {}, (err, userData) => {
+//       // if (err) throw err;
+//       resolve(userData);
+//     });
+//   // });
+// }
 
 // function getUserDataFromReq(req) {
 //   return new Promise((resolve, reject) => {
@@ -223,7 +221,6 @@ app.get('/places', async (req,res) => {
 
 app.post('/bookings', async (req, res) => {
   const userData = await getUserDataFromReq(req);
-  console.log(userData);
   const {
     place, checkIn, checkOut,
     numberOfGuests, name, phone, price,
