@@ -33,14 +33,14 @@ mongoose.connect(process.env.MONGO_URL);
 
 function getUserDataFromReq(req) {
   // const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
-  const token = req.cookies.token;
   return new Promise((resolve, reject) => {
-    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-      if (err) throw err;
-      req.id = id;
+    // jwt.verify(token, jwtSecret, {}, (err, userData) => {
+    //   if (err) throw err;
+     req.id;
+     console.log(id)
       resolve(userData);
     });
-  });
+  // });
 }
 
 // function getUserDataFromReq(req) {
