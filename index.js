@@ -32,9 +32,9 @@ app.use(cors({
 mongoose.connect(process.env.MONGO_URL);
 
 function getUserDataFromReq(req) {
-  const id = req.headers.authorization?.split(' ')[1] // Bearer token [1]
+  const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
   return new Promise((resolve, reject) => {
-    jwt.verify(id, jwtSecret, {}, (err, userData) => {
+    jwt.verify(token, jwtSecret, {}, (err, userData) => {
       if (err) throw err;
       resolve(userData);
     });
@@ -84,7 +84,7 @@ app.post('/login', async (req,res) => {
           id:userDoc._id
         }, jwtSecret, {}, (err,token) => {
           if (err) throw err;
-          res.json(userDoc,id);
+          res.json(userDoc,token);
         });
       } else {
         res.status(422).json(userDoc);
