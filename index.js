@@ -132,7 +132,8 @@ app.post('/upload', (req,res) => {
 
 
 app.post('/places', (req, res) =>{
-  const {token} = req.cookies;
+  // const {token} = req.cookies;
+  const token = req.headers.authorization?.split(' ')[1] // Bearer token [1]
   const { 
       title, address, addedPhotos, description, 
       perks, extraInfo, checkIn, checkOut, maxGuests, price,     
