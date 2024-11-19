@@ -222,10 +222,7 @@ app.post('/bookings', async (req, res) => {
 
 app.get('/bookings', async (req, res) => {
   const userData = await getUserDataFromReq(req);
-  // res.json( await Booking.find({user:userData.id}).populate('place'));
-  const booking = await Booking.find({ user: userData.id }).populate('place')
-  res
-      .status(200).json({ booking, success: true })
+  res.json( await Booking.find({user:userData.id}).populate('place'));
 });
 
 
