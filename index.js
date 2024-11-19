@@ -41,15 +41,6 @@ function getUserDataFromReq(req) {
   });
 }
 
-// function getUserDataFromReq(req) {
-//   return new Promise((resolve, reject) => {
-//     jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
-//       if (err) throw err;
-//       resolve(userData);
-//     });
-//   });
-// }
-
 
 app.get('/', (req, res) => {
     res.json('Capstone ok');
@@ -231,7 +222,10 @@ app.post('/bookings', async (req, res) => {
 
 app.get('/bookings', async (req, res) => {
   const userData = await getUserDataFromReq(req);
-  res.json( await Booking.find({user:userData.id}).populate('place'));
+  // res.json( await Booking.find({user:userData.id}).populate('place'));
+  const booking = await Booking.find({ user: userData.id }).populate('place')
+  res
+      .status(200).json({ booking, success: true })
 });
 
 
